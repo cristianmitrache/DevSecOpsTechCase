@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: network-scanner-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: network-scanner
+  template:
+    metadata:
+      labels:
+        app: network-scanner
+    spec:
+      containers:
+      - name: scanner
+        image: cristianbogdanmitrache/devsecops:latest # https://hub.docker.com/r/cristianbogdanmitrache/devsecops/tags
+        command: ["/bin/bash", "-c"]
+        args:
+          - /app/scanner.sh
+          # Add more IPs as needed
+          - 192.168.1.1
+          - 192.168.1.2
+          - 192.168.1.3
+      restartPolicy: Always
+---
+apiVersion: batch/v1 # https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/cron-job-v1/
+kind: CronJob
+metadata:
+  name: network-scanner-cronjob
+spec:
+  schedule: "*/5 * * * *"
+  concurrencyPolicy: Replace
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: scanner
+            image: cristianbogdanmitrache/devsecops:latest # https://hub.docker.com/r/cristianbogdanmitrache/devsecops/tags
+            command: ["/bin/bash", "-c"]
+            args:
+              - /app/scanner.sh
+          restartPolicy: OnFailure # This one is kinda redundant, as the bash script also has a 5 minute sleep period, but I included it mostly for demonstration purposes.
