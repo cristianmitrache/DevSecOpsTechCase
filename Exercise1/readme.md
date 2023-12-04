@@ -1,8 +1,11 @@
 INFO exercise 1
 
 These are the files required for the first exercise. 
+
 For 1.1 we have site.yml and install_ansible.sh. 
+
 For 1.2 we have getweather.sh.
+
 For 1.3 we have Dockerfile. 
 
 While I tried to apply security best practices, like using --no-cache when building containers, assigning a dedicated user for running the script inside the container, 
