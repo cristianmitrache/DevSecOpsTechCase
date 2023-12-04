@@ -12,4 +12,4 @@ While I tried to apply security best practices, like using --no-cache when build
 it kept breaking the bash script, so I left it in the current state.
 
 PS: While it is technically complete, the output in 1.3 for "grep -i Honolulu /var/log/syslog" comes out empty, meaning I missed something.
-PS2: You wrote that you preffer Python and Go, but I am more experienced in using Bash, but I am quite confident I will expand my Python knowledge going forward.
+PS2: You wrote that you prefer Python and Go, but I am more experienced in using Bash, but I am quite confident I will expand my Python knowledge going forward.
